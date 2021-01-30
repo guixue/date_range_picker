@@ -50,6 +50,7 @@ const double _kDatePickerLandscapeHeight =
     _kMaxDayPickerHeight + _kDialogActionBarHeight;
 
 // Shows the selected date in large font and toggles between year and day mode
+
 class _DatePickerHeader extends StatelessWidget {
   const _DatePickerHeader({
     Key key,
@@ -93,8 +94,10 @@ class _DatePickerHeader extends StatelessWidget {
         break;
     }
     final TextStyle dayStyle =
+        // ignore: deprecated_member_use
         headerTextTheme.display1.copyWith(color: dayColor, height: 1.4);
     final TextStyle yearStyle =
+        // ignore: deprecated_member_use
         headerTextTheme.subhead.copyWith(color: yearColor, height: 1.4);
 
     Color backgroundColor;
@@ -452,6 +455,7 @@ class DayPicker extends StatelessWidget {
             (selectableDayPredicate != null &&
                 !selectableDayPredicate(dayToBuild));
         BoxDecoration decoration;
+        // ignore: deprecated_member_use
         TextStyle itemStyle = themeData.textTheme.body1;
         final bool isSelectedFirstDay = selectedFirstDate.year == year &&
             selectedFirstDate.month == month &&
@@ -467,11 +471,13 @@ class DayPicker extends StatelessWidget {
             : null;
         if (isSelectedFirstDay &&
             (isSelectedLastDay == null || isSelectedLastDay)) {
+          // ignore: deprecated_member_use
           itemStyle = themeData.accentTextTheme.body2;
           decoration = new BoxDecoration(
               color: themeData.accentColor, shape: BoxShape.circle);
         } else if (isSelectedFirstDay) {
           // The selected day gets a circle background highlight, and a contrasting text color.
+          // ignore: deprecated_member_use
           itemStyle = themeData.accentTextTheme.body2;
           decoration = new BoxDecoration(
               color: themeData.accentColor,
@@ -480,6 +486,7 @@ class DayPicker extends StatelessWidget {
                 bottomLeft: new Radius.circular(50.0),
               ));
         } else if (isSelectedLastDay != null && isSelectedLastDay) {
+          // ignore: deprecated_member_use
           itemStyle = themeData.accentTextTheme.body2;
           decoration = new BoxDecoration(
               color: themeData.accentColor,
@@ -492,6 +499,7 @@ class DayPicker extends StatelessWidget {
               color: themeData.accentColor.withOpacity(0.1),
               shape: BoxShape.rectangle);
         } else if (disabled) {
+          // ignore: deprecated_member_use
           itemStyle = themeData.textTheme.body1
               .copyWith(color: themeData.disabledColor);
         } else if (currentDate.year == year &&
@@ -499,6 +507,7 @@ class DayPicker extends StatelessWidget {
             currentDate.day == day) {
           // The current day gets a different text color.
           itemStyle =
+              // ignore: deprecated_member_use
               themeData.textTheme.body2.copyWith(color: themeData.accentColor);
         }
 
@@ -561,6 +570,7 @@ class DayPicker extends StatelessWidget {
               child: new ExcludeSemantics(
                 child: new Text(
                   localizations.formatMonthYear(displayedMonth),
+                  // ignore: deprecated_member_use
                   style: themeData.textTheme.subhead,
                 ),
               ),
@@ -943,6 +953,7 @@ class _YearPickerState extends State<YearPicker> {
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterial(context));
     final ThemeData themeData = Theme.of(context);
+    // ignore: deprecated_member_use
     final TextStyle style = themeData.textTheme.body1;
     return new ListView.builder(
       controller: scrollController,
@@ -954,6 +965,7 @@ class _YearPickerState extends State<YearPicker> {
             (widget.selectedLastDate != null &&
                 year == widget.selectedLastDate.year);
         final TextStyle itemStyle = isSelected
+            // ignore: deprecated_member_use
             ? themeData.textTheme.headline
                 .copyWith(color: themeData.accentColor)
             : style;
@@ -1054,6 +1066,9 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
         HapticFeedback.vibrate();
         break;
       case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
         break;
     }
   }
@@ -1149,13 +1164,15 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
         child: _buildPicker(),
       ),
     );
-    final Widget actions = new ButtonTheme.bar(
+    final Widget actions = new ButtonTheme(
       child: new ButtonBar(
         children: <Widget>[
+          // ignore: deprecated_member_use
           new FlatButton(
             child: new Text(localizations.cancelButtonLabel),
             onPressed: _handleCancel,
           ),
+          // ignore: deprecated_member_use
           new FlatButton(
             child: new Text(localizations.okButtonLabel),
             onPressed: _handleOk,
